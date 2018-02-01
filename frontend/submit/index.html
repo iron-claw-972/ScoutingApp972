@@ -1,5 +1,9 @@
 <html>
 	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+		<script src="main.js"></script>
+
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -31,12 +35,12 @@
 			<rect id="p5" x="260" y="100" width="30" height="30" fill="red"
 			  onclick="tick(this)"/>
 		</svg> -->
-		<form>
+		<form action="action" method="POST">
 			<fieldset class="container">
 				<legend>Team Information</legend>
-				
 				Match Number <input id="matchNumber" name="matchNumber" type="textbox" size="4" required><br/>
 				Team Number <input id="teamNumber" name="teamNumber" type="textbox" size="4" required><br/>
+				Scout Name <input name="scoutName" type="textbox" required><br/>
 				<h2>Auto Period</h2>
 				<input id="autoLine" name="autoLine" type="checkbox">Auto Line<br/>
 				<input id="correctSwitchSide" name="correctSwitchSide" type="checkbox">Correct Switch Side<br/>
@@ -58,7 +62,8 @@
 				<h2>Comments</h2>
 				<textarea id="comments" name="comments"></textarea>
 			</fieldset>
-			<br/><button type="submit">Submit</button>
+			<br/>
+			<input type="submit" name="submit">
 		</form>
 	</body>
 </html>
