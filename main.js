@@ -1,0 +1,105 @@
+  // Client ID and API key from the Developer Console
+  var CLIENT_ID = '706334826731-0tts2j9obk73gl5flngi8jo639e7mnk5.apps.googleusercontent.com';
+  var API_KEY = 'AIzaSyBkABC_Q-vMyP0ML1O3AKiSp_YCKsxKUT4';
+  var spreadsheetId = '1XfIrmB9tNzBckh3W689WZToBLRnU2kwWatePk_pawoc';
+
+  // Array of API discovery doc URLs for APIs used by the quickstart
+  var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
+
+  // Authorization scopes required by the API; multiple scopes can be
+  // included, separated by spaces.
+  var SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
+
+  var authorizeButton = document.getElementById('authorize-button');
+  var signoutButton = document.getElementById('signout-button');
+
+  var defaultTable = '<tr><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th><th>J</th><th>K</th><th>L</th><th>M</th></tr>'
+
+  /**
+   *  On load, called to load the auth2 library and API client library.
+   */
+  function handleClientLoad() {
+    gapi.load('client:auth2', initClient);
+  }
+
+  /**
+   *  Initializes the API client library and sets up sign-in state
+   *  listeners.
+   */
+  function initClient() {
+    gapi.client.init({
+      apiKey: API_KEY,
+      clientId: CLIENT_ID,
+      discoveryDocs: DISCOVERY_DOCS,
+      scope: SCOPES
+    }).then(function() {
+      // Listen for sign-in state changes.
+      gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+      // Handle the initial sign-in state.
+      updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+      authorizeButton.onclick = handleAuthClick;
+      signoutButton.onclick = handleSignoutClick;
+    });
+  }
+
+  /**
+   *  Called when the signed in status changes, to update the UI
+   *  appropriately. After a sign-in, the API is called.
+   */
+  function updateSigninStatus(isSignedIn) {
+    if (isSignedIn) {
+      authorizeButton.style.display = 'none'
+      signoutButton.style.display = 'block'
+      gainAccess();
+    } else {
+      authorizeButton.style.display = 'block'
+      signoutButton.style.display = 'none'
+      document.getElementById('statsTable').innerHTML = defaultTable
+    }
+  }
+
+  /**
+   *  Sign in the user upon button click.
+   */
+  function handleAuthClick(event) {
+    gapi.auth2.getAuthInstance().signIn();
+  }
+
+  /**
+   *  Sign out the user upon button click.
+   */
+  function handleSignoutClick(event) {
+    gapi.auth2.getAuthInstance().signOut();
+  }
+
+  /*
+   * @param {object} google row object
+   */
+  function appendRow(row) {
+    var htmlrow = '<tr>'
+    for (var i = 0; i < row.length; i++) {
+      htmlrow += '<td>' + row[i] + '</td>'
+    }
+    htmlrow += '</tr>'
+    document.getElementById('statsTable').innerHTML += htmlrow
+  }
+
+  function gainAccess() {
+    gapi.client.sheets.spreadsheets.values.get({
+      spreadsheetId: spreadsheetId,
+      range: 'stats!A2:M',
+    }).then(function(response) {
+      var range = response.result;
+      if (range.values.length > 0) {
+        for (i = 0; i < range.values.length; i++) {
+          var row = range.values[i];
+          appendRow(row);
+        }
+      } else {
+        appendPre('No data found.');
+      }
+    }, function(response) {
+      appendPre('Error: ' + response.result.error.message);
+    });
+  }

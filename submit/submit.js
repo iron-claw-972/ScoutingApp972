@@ -10,5 +10,6 @@ $('document').ready(function() {
             })
             .then(response => console.log('Success!', response))
             .catch(error => console.error('Error!', error.message))
+        window.location.href = "../formSubmitted"
     })
 });
