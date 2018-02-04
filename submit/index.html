@@ -2,23 +2,21 @@
 	<head>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-		<!-- Latest compiled and minified JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+			<!-- Latest compiled and minified CSS -->
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+			<!-- Latest compiled and minified JavaScript -->
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+			
 		<script src="main.js"></script>
-
-		<script type="text/JavaScript">
+		<!-- <script type="text/JavaScript">
 			function tick(pad) {
 				// alert("tick " + pad.id);
 				// just increments one total right now.
 				allianceSwitchBlocks.value =
 				  allianceSwitchBlocks.valueAsNumber + 1;
 			}
-		</script>
-		</head>
+		</script> -->
+	</head>
 	<body>
 		<!-- <svg viewBox="0 0 300 150" xmlns="">
 			<rect width="300" height="200" fill="green"/>
@@ -35,32 +33,32 @@
 			<rect id="p5" x="260" y="100" width="30" height="30" fill="red"
 			  onclick="tick(this)"/>
 		</svg> -->
-		<form action="action" method="POST">
+		<form name="submit-to-google-sheet">
 			<fieldset class="container">
 				<legend>Team Information</legend>
-				Match Number <input id="matchNumber" name="matchNumber" type="textbox" size="4" required><br/>
-				Team Number <input id="teamNumber" name="teamNumber" type="textbox" size="4" required><br/>
-				Scout Name <input id="scoutName" name="scoutName" type="textbox" size="24" required><br/>
+				Match Number <input id="matchNumber" 	name="matchNumber" 	type="textbox" size="4" 	value="a" required><br/>
+				Team Number <input 	id="teamNumber" 	name="teamNumber" 	type="textbox" size="4" 	value="a" required><br/>
+				Scout Name <input 	id="scoutName" 		name="scoutName" 	type="textbox" size="24" 	value="a" required><br/>
 				<h2>Auto Period</h2>
-				<input id="autoLine" name="autoLine" type="checkbox">Auto Line<br/>
-				<input id="correctSwitchSide" name="correctSwitchSide" type="checkbox">Correct Switch Side<br/>
-				<input id="wrongSwitchSide" name="wrongSwitchSide" type="checkbox">Wrong Switch Side<br/>
-				<input id="autoScale" name="autoScale" type="checkbox">Scale<br/>
-				<input id="autoExchange" name="autoExchange" type="checkbox">Exchange<br/>
+				<input id="autoLine" 				name="autoLine" 				type="checkbox">Auto Line<br/>
+				<input id="autoCorrectSwitchSide" 	name="autoCorrectSwitchSide" 	type="checkbox">Correct Switch Side<br/>
+				<input id="autoWrongSwitchSide" 	name="autoWrongSwitchSide" 		type="checkbox">Wrong Switch Side<br/>
+				<input id="autoScale" 				name="autoScale" 				type="checkbox">Scale<br/>
+				<input id="autoExchange" 			name="autoExchange" 			type="checkbox">Exchange<br/>
 				<h2>Teleop Period</h2>
 				<h3>Blocks Delivered</h3>
-				Alliance Switch <input id="teleopAllianceSwitch" name="teleopAllianceSwitch" type="number" value="0" min="0" max="60"><br/>
-				Scale <input id="teleopScale" name="teleopScale" type="number" value="0" min="0" max="60"><br/>
-				Opponent Switch <input id="teleopOpponentSwitch" name="teleopOpponentSwitch" type="number" value="0" min="0" max="60"><br/>
-				Exchange <input id="teleopExchange" name="teleopExchange" type="number" value="0" min="0" max="60"><br/>
+				Alliance Switch <input 	id="teleopAllianceSwitch" 	name="teleopAllianceSwitch" type="number" value="0" min="0" max="60"><br/>
+				Scale <input 			id="teleopScale" 			name="teleopScale" 			type="number" value="0" min="0" max="60"><br/>
+				Opponent Switch <input 	id="teleopOpponentSwitch" 	name="teleopOpponentSwitch" type="number" value="0" min="0" max="60"><br/>
+				Exchange <input 		id="teleopExchange" 		name="teleopExchange" 		type="number" value="0" min="0" max="60"><br/>
 				<h2>Endgame</h2>
-				<input id="climb" name="climb" type="checkbox">Can Climb<br/>
-				<input id="liftAssist" name="liftAssist" type="checkbox">Can Lift Others<br/>
+				<input id="climb" 		name="climb" 		type="checkbox">Can Climb<br/>
+				<input id="liftAssist" 	name="liftAssist" 	type="checkbox">Can Lift Others<br/>
+				<input id="win" 	name="win" 	type="checkbox">Won Game<br/>
 				<h2>Comments</h2>
-				<textarea id="comments" name="comments"></textarea><br/>
-				<input type="submit" name="submit">
+				<textarea 	id="comments" 	name="comments"></textarea><br/>
+				<input id="submit" type="submit">
 			</fieldset>
-			<br/>
 		</form>
 	</body>
 </html>

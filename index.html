@@ -8,8 +8,9 @@
 
     <script type="text/javascript">
       // Client ID and API key from the Developer Console
-      var CLIENT_ID = '404587687849-n8qpnged8cbpra3lr1af1vbmf51fk5td.apps.googleusercontent.com';
-      var API_KEY = 'AIzaSyBmTK9Snsm-v1dqKRl_8yGrbtjIJAxCZE4';
+      var CLIENT_ID = '706334826731-0tts2j9obk73gl5flngi8jo639e7mnk5.apps.googleusercontent.com';
+      var API_KEY = 'AIzaSyBkABC_Q-vMyP0ML1O3AKiSp_YCKsxKUT4';
+      var spreadsheetId = '1XfIrmB9tNzBckh3W689WZToBLRnU2kwWatePk_pawoc';
 
       // Array of API discovery doc URLs for APIs used by the quickstart
       var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
@@ -92,8 +93,8 @@
 
       function gainAccess() {
         gapi.client.sheets.spreadsheets.values.get({
-          spreadsheetId: '1SxOZL9bORds_g5TuQjrw0RDlle1GCyxPvbeyss7uE_I',
-          range: 'test!A2:B',
+          spreadsheetId: spreadsheetId,
+          range: 'stats!A2:M',
         }).then(function(response) {
           var range = response.result;
           if (range.values.length > 0) {
