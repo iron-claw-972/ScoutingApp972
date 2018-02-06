@@ -1,5 +1,5 @@
   // Client ID and API key from the Developer Console
-  var CLIENT_ID = '706334826731-0tts2j9obk73gl5flngi8jo639e7mnk5.apps.googleusercontent.com';
+  var CLIENT_ID = '706334826731-skluvlcun29l30bghou6oa6educgcflh.apps.googleusercontent.com';
   var API_KEY = 'AIzaSyBkABC_Q-vMyP0ML1O3AKiSp_YCKsxKUT4';
   var spreadsheetId = '1XfIrmB9tNzBckh3W689WZToBLRnU2kwWatePk_pawoc';
 
@@ -21,6 +21,9 @@
   function handleClientLoad() {
     gapi.load('client:auth2', initClient);
   }
+
+  var url = new URL(window.location.href);
+  var teamNumber = url.searchParams.get("teamNumber");
 
   /**
    *  Initializes the API client library and sets up sign-in state
