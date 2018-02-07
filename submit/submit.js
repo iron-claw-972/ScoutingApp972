@@ -8,8 +8,14 @@ $('document').ready(function() {
                 method: 'POST',
                 body: new FormData(form)
             })
-            .then(response => console.log('Success!', response))
+            .then(function(response) {
+                console.log('Success!');
+                window.location.replace("../formSubmitted");
+            })
             .catch(error => console.error('Error!', error.message))
-        window.location.href = "../formSubmitted"
     })
 });
+
+function success(e) {
+    console.log("success");
+}
