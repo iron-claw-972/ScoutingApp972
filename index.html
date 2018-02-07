@@ -1,61 +1,18 @@
 <head>
   <head>
-    <style>
-      table, th, td {
-        border: 1px solid black;
-        border-collapse: collapse;
-      }
-      th, td {
-        padding: 5px;
-      }
-    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="main.css">
+
+    <script type="text/javascript" src="mainChart.js"></script>
+    <script type="text/javascript" src="main.js"></script>
   </head>
   <body>
     <button id="authorize-button" style="display: none;">log in</button>
     <button id="signout-button" style="display: none;">log out</button>
 
     <table id="statsTable">
-      <tr>
-        <th>
-          A
-        </th>
-        <th>
-          B
-        </th>
-        <th>
-          C
-        </th>
-        <th>
-          D
-        </th>
-        <th>
-          E
-        </th>
-        <th>
-          F
-        </th>
-        <th>
-          G
-        </th>
-        <th>
-          H
-        </th>
-        <th>
-          I
-        </th>
-        <th>
-          J
-        </th>
-        <th>
-          K
-        </th>
-        <th>
-          L
-        </th>
-        <th>
-          M
-        </th>
-      </tr>
     </table>
 
     <script src="main.js">
@@ -65,6 +22,8 @@
       onload="this.onload=function(){};handleClientLoad()"
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
-    <a href="./submit">submit a form</a>
+    <button id="scout" onclick="window.location.href='./submit'">SCOUT</button>
+
+    <canvas id="myChart"></canvas>
   </body>
 </html>
