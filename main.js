@@ -54,11 +54,10 @@ function updateSigninStatus(isSignedIn) {
     authorizeButton.style.display = 'none'
     signoutButton.style.display = 'block'
     document.getElementById('statsTable').innerHTML = defaultTable
-    gainAccess()
-    console.log(typeof arr)
-    console.log(tableData.length)
-    $('#statsTable').show()
-    createChart()
+    gainAccess(function() {
+      $('#statsTable').show()
+      createChart()
+    })
   } else {
     authorizeButton.style.display = 'block'
     signoutButton.style.display = 'none'
@@ -100,7 +99,7 @@ function appendRow(row) {
   console.log('arrray -> ' + tableData[0])
 }
 
-function gainAccess() {
+function gainAccess(callback) {
   gapi.client.sheets.spreadsheets.values.get({
     spreadsheetId: spreadsheetId,
     range: 'stats!A2:M',
@@ -109,14 +108,16 @@ function gainAccess() {
     if (range.values.length > 0) {
       for (i = 0; i < range.values.length; i++) {
         var row = range.values[i];
-        // if (JSON.stringify(row[1]) == '#NAME?') {
-        //   setTimeout(gainAccess, 100);
-        // }
+        if (JSON.stringify(row[1]) == '#NAME?') {
+          setTimeout(gainAccess, 100);
+          return;
+        }
         appendRow(row);
       }
     } else {
       appendPre('No data found.');
     }
+    callback();
   }, function(response) {
     appendPre('Error: ' + response.result.error.message);
   });
