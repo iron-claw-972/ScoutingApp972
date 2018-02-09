@@ -32,46 +32,75 @@
 			<rect id="p5" x="260" y="100" width="30" height="30" fill="red"
 			  onclick="tick(this)"/>
 		</svg> -->
-		<form name="submit-to-google-sheet">
-			<fieldset class="container">
-				<legend>Team Information</legend>
-				Match Number <input id="matchNumber" 	name="matchNumber" 	type="textbox" size="4"  required><br/>
-				<p></p>
-				Team Number <input 	id="teamNumber" 	name="teamNumber" 	type="textbox" size="4"  required><br/>
-				<p></p>
-				Scout Name <input 	id="scoutName" 		name="scoutName" 	type="textbox" size="24" required><br/>
-				<p></p>
+		<form id="mf" name="submit-to-google-sheet">
+			<fieldset id="fs">
+				Match Number <br/><input id="matchNumber" 	name="matchNumber" 	type="number" placeholder="match number" style="width: 12em" min="0" max="100" required><br/>
+				Team Number <br/><input id="teamNumber" 	name="teamNumber" 	type="number" placeholder="team number" style="width: 12em" min="0" max="10000" required><br/>
+				Scouting Name <br/><input id="scoutName" 	name="scoutName" 	type="textbox" placeholder="your name" style="width: 12em" maxlength="5" required><br/>
+
 				<h2>Auto Period</h2>
-				<input id="autoLine" 		class="size"		name="autoLine" 				type="checkbox">Auto Line<br/>
-				<p></p>
-				<input id="autoCorrectSwitchSide" 	name="autoCorrectSwitchSide" 	type="checkbox">Correct Switch Side<br/>
-				<p></p>
-				<input id="autoWrongSwitchSide" 	name="autoWrongSwitchSide" 		type="checkbox">Wrong Switch Side<br/>
-				<p></p>
-				<input id="autoScale" 				name="autoScale" 				type="checkbox">Scale<br/>
-				<p></p>
-				<input id="autoExchange" 			name="autoExchange" 			type="checkbox">Exchange<br/>
-				<p></p>
+				<label class="container">
+					<input id="autoLine" class="size"	name="autoLine"	type="checkbox">Auto Line<br/>
+	 				<span class="checkmark"></span>
+				</label>
+				
+				
+				<label class="container">
+					<input id="autoCorrectSwitchSide" 	name="autoCorrectSwitchSide" type="checkbox">Correct Switch Side<br/>
+	 				<span class="checkmark"></span>
+				</label>
+				
+				
+				<label class="container">
+					<input id="autoWrongSwitchSide" 	name="autoWrongSwitchSide" type="checkbox">Wrong Switch Side<br/>
+	 				<span class="checkmark"></span>
+				</label>
+				
+				
+				<label class="container">
+					<input id="autoScale" 				name="autoScale" type="checkbox">Scale<br/>
+	 				<span class="checkmark"></span>
+				</label>
+				
+				
+				<label class="container">
+					<input id="autoExchange" 			name="autoExchange" type="checkbox">Exchange<br/>
+	 				<span class="checkmark"></span>
+				</label>
+				
+				
 				<h2>Teleop Period</h2>
 				<h3>Blocks Delivered</h3>
 				Alliance Switch <input 	id="teleopAllianceSwitch" 	name="teleopAllianceSwitch" type="number" value="0" min="0" max="60"><br/>
-				<p></p>
+				
 				Scale <input 			id="teleopScale" 			name="teleopScale" 			type="number" value="0" min="0" max="60"><br/>
-				<p></p>
+				
 				Opponent Switch <input 	id="teleopOpponentSwitch" 	name="teleopOpponentSwitch" type="number" value="0" min="0" max="60"><br/>
-				<p></p>
+				
 				Exchange <input 		id="teleopExchange" 		name="teleopExchange" 		type="number" value="0" min="0" max="60"><br/>
-				<p></p>
+				
 				<h2>Endgame</h2>
-				<input id="climb" 		name="climb" 		type="checkbox">Can Climb<br/>
-				<p></p>
-				<input id="liftAssist" 	name="liftAssist" 	type="checkbox">Can Lift Others<br/>
-				<p></p>
-				<input id="win" 	name="win" 	type="checkbox">Won Game<br/>
-				<p></p>
+				<label class="container">
+					<input id="climb" 		name="climb" 		type="checkbox">Can Climb<br/>
+	 				<span class="checkmark"></span>
+				</label>
+				
+				
+				<label class="container">
+					<input id="liftAssist" 	name="liftAssist" 	type="checkbox">Can Lift Others<br/>
+	 				<span class="checkmark"></span>
+				</label>
+				
+				
+				<label class="container">
+					<input id="win" 	name="win" 	type="checkbox">Won Game<br/>
+	 				<span class="checkmark"></span>
+				</label>
+				
+				
 				<h2>Comments</h2>
 				<textarea 	id="comments" 	name="comments"></textarea><br/>
-				<p></p>
+				
 				<input id="submit" type="submit">
 			</fieldset>
 		</form>
