@@ -56,7 +56,9 @@ function updateSigninStatus(isSignedIn) {
     document.getElementById('statsTable').innerHTML = defaultTable
     gainAccess(function() {
       $('#statsTable').show()
-      createChart()
+      createChart('myChart1', 6)
+      createChart('myChart2', 1)
+      createChart('myChart3', 10)
     })
   } else {
     authorizeButton.style.display = 'block'
@@ -108,10 +110,12 @@ function gainAccess(callback) {
     if (range.values.length > 0) {
       for (i = 0; i < range.values.length; i++) {
         var row = range.values[i];
-        if (JSON.stringify(row[1]) == '#NAME?') {
-          setTimeout(gainAccess, 100);
-          return;
+        if (JSON.stringify(row[3]) == '#NAME?') {
+          console.log("waitin")
+          setTimeout(gainAccess, 100)
+          return
         }
+        console.log('row 3 : ' + JSON.stringify(row[3]))
         appendRow(row);
       }
     } else {

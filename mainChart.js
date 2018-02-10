@@ -1,21 +1,37 @@
-function createChart() {
-	var ctx = document.getElementById('myChart').getContext('2d');
+function createChart(chart, row) {
+	var ctx = document.getElementById(chart).getContext('2d');
 	var labels = getColumn(tableData, 0)
-	var data = getColumn(tableData, 6)
+	var data = getColumn(tableData, row)
 	var chart = new Chart(ctx, {
 		type: 'bar',
-
 		data: {
 			labels: labels,
 			datasets: [{
-				label: "My First dataset",
-				backgroundColor: 'rgb(255, 99, 132)',
-				borderColor: 'rgb(255, 99, 132)',
+				label: row,
+				backgroundColor: 'orange',
+				borderColor: 'orange',
 				data: data
 			}]
 		},
-
-		options: {}
+		options: {
+			// title: {
+			// 	display: false
+			// },
+			// scales: {
+			// 	xAxes: [{
+			// 		gridLines: {
+			// 			color: '#484848',
+			// 			lineWidth: 1
+			// 		}
+			// 	}],
+			// 	yAxes: [{
+			// 		gridLines: {
+			// 			color: '#484848',
+			// 			lineWidth: 1
+			// 		}
+			// 	}]
+			// }
+		}
 	});
 }
 

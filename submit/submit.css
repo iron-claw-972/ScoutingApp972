@@ -1,10 +1,18 @@
+body {
+    font-family: 'Dosis', sans-serif;
+    background-color: #FFFFFF;
+    color: #404040;
+    font-size: 22px;
+    font-weight: bold;
+    /*text-shadow: 2px 2px 5px #555555;*/
+}
 .container {
     display: block;
     position: relative;
     padding-left: 35px;
     margin-bottom: 12px;
     cursor: pointer;
-    font-size: 22px;
+    font-size: 24px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -27,7 +35,7 @@
     background-color: #ccc;
 }
 .container input:checked~.checkmark {
-    background-color: #ff9030;
+    background-color: orange;
 }
 .checkmark:after {
     content: "";
@@ -48,19 +56,43 @@
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
-body {
-    background-color: #ffffff;
-    color: #404040;
-    font-size: 22px;
-    font-weight: bold;
-    /*text-shadow: 2px 2px 5px #555555;*/
+#fs {
+    border: none;
 }
-@media (max-width: 992px) {
+input[type=textbox] {
+    height: 20px;
+    font-size: 20px;
+}
+input[type=textbox]::-webkit-input-placeholder {
+    color: #A9A9A9;
+    font-size: 20px;
+}
+textarea {
+    height: 16em;
+    width: 50%;
+    font-size: 20px;
+}
+input[type=number] {
+    height: 20px;
+    font-size: 20px;
+}
+input[type=number]::-webkit-input-placeholder {
+    color: #A9A9A9;
+    font-size: 20px;
+}
+input[type=submit] {
+    height: 30px;
+    width: 6em;
+    font-size: 20px;
+    background-color: darkgray;
+    border: none;
+}
+@media (max-width: 900px) {
     body {
         font-size: 26px;
     }
     #fs {
-        border: 2px solid #595959;
+        border: none;
     }
     #comments {
         width: 100%;
@@ -113,14 +145,5 @@ body {
         width: 30px;
         height: 50px;
         border-width: 0 10px 10px 0;
-    }
-}
-@media (min-width: 992px) {
-    input[type=textbox]::-webkit-input-placeholder {
-        /* Chrome/Opera/Safari */
-        color: pink;
-        font-size: 15px;
-        height: 25px;
-        margin: 3px 3px 3px 3px;
     }
 }

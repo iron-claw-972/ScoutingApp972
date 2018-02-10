@@ -9,8 +9,8 @@
     <script type="text/javascript" src="main.js"></script>
   </head>
   <body>
-    <button id="authorize-button" style="display: none;">log in</button>
-    <button id="signout-button" style="display: none;">log out</button>
+    <button id="authorize-button" class="loginout" style="display: none;">log in</button>
+    <button id="signout-button" class="loginout" style="display: none;">log out</button>
 
     <table id="statsTable">
     </table>
@@ -23,7 +23,16 @@
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
     <button id="scout" onclick="window.location.href='./submit'">SCOUT</button>
-
-    <canvas id="myChart"></canvas>
+    <section id="sectionDiv">
+      <div class="chartContainer">
+        <canvas id="myChart1"></canvas>
+      </div>
+      <div class="chartContainer">
+        <canvas id="myChart2"></canvas>
+      </div>
+      <div class="chartContainer">
+        <canvas id="myChart3"></canvas>
+      </div>
+    </section>
   </body>
 </html>
