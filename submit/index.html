@@ -1,17 +1,18 @@
 <!doctype html>
 <html>
 	<head>
-
 	    <meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    	<link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
 		<!-- Latest compiled and minified JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-			
+		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+		
 		<script src="submit.js"></script>
 
 		<link rel = "styleSheet" type= "text/css" href = "submit.css">
@@ -36,7 +37,7 @@
 			<fieldset id="fs">
 				Match Number <br/><input id="matchNumber" 	name="matchNumber" 	type="number" placeholder="match number" style="width: 12em" min="0" max="100" required><br/>
 				Team Number <br/><input id="teamNumber" 	name="teamNumber" 	type="number" placeholder="team number" style="width: 12em" min="0" max="10000" required><br/>
-				Scouting Name <br/><input id="scoutName" 	name="scoutName" 	type="textbox" placeholder="your name" style="width: 12em" maxlength="5" required><br/>
+				Scout Name <br/><input id="scoutName" 	name="scoutName" 	type="textbox" placeholder="your name" style="width: 12em" maxlength="24" required><br/>
 
 				<h2>Auto Period</h2>
 				<label class="container">
@@ -71,7 +72,8 @@
 				
 				<h2>Teleop Period</h2>
 				<h3>Blocks Delivered</h3>
-				Alliance Switch <input 	id="teleopAllianceSwitch" 	name="teleopAllianceSwitch" type="number" value="0" min="0" max="60"><br/>
+				Alliance Switch <input 	id="teleopAllianceSwitch" 	name="teleopAllianceSwitch" type="number" value="0" min="0" max="60">
+				<button class=""></button><br/>
 				
 				Scale <input 			id="teleopScale" 			name="teleopScale" 			type="number" value="0" min="0" max="60"><br/>
 				
