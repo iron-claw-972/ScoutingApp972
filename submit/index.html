@@ -15,87 +15,73 @@
 		
 		<script src="submit.js"></script>
 
+		<link rel = "styleSheet" type= "text/css" href = "../main.css">
+
 		<link rel = "styleSheet" type= "text/css" href = "submit.css">
 	</head>
 	<body>
-		<!-- <svg viewBox="0 0 300 150" xmlns="">
-			<rect width="300" height="200" fill="green"/>
-			<rect id="p0" x="10" y="20" width="30" height="30" fill="blue"
-			  onclick="tick(this)" />
-			<rect id="p1" x="10" y="100" width="30" height="30" fill="red"
-			  onclick="tick(this)" />
-			<rect id="p2" x="135" y="20" width="30" height="30" fill="blue"
-			  onclick="tick(this)" />
-			<rect id="p3" x="135" y="100" width="30" height="30" fill="red"
-			  onclick="tick(this)" />
-			<rect id="p4" x="260" y="20" width="30" height="30" fill="blue"
-			  onclick="tick(this)" />
-			<rect id="p5" x="260" y="100" width="30" height="30" fill="red"
-			  onclick="tick(this)"/>
-		</svg> -->
 		<form id="mf" name="submit-to-google-sheet">
 			<fieldset id="fs">
 				Match Number <br/><input id="matchNumber" 	name="matchNumber" 	type="number" placeholder="match number" style="width: 12em" min="0" max="100" required><br/>
 				Team Number <br/><input id="teamNumber" 	name="teamNumber" 	type="number" placeholder="team number" style="width: 12em" min="0" max="10000" required><br/>
-				Scout Name <br/><input id="scoutName" 	name="scoutName" 	type="textbox" placeholder="your name" style="width: 12em" maxlength="24" required><br/>
+				Scout Name <br/><input id="scoutName" 		name="scoutName" 	type="textbox" placeholder="your name" style="width: 12em" maxlength="24" required><br/>
 
 				<h2>Auto Period</h2>
 				<label class="container">
-					<input id="autoLine" class="size"	name="autoLine"	type="checkbox">Auto Line<br/>
+					<input id="autoLine" class="size" name="autoLine" type="checkbox">Auto Line<br/>
 	 				<span class="checkmark"></span>
 				</label>
+				<br/>
 				
-				
-				<label class="container">
-					<input id="autoCorrectSwitchSide" 	name="autoCorrectSwitchSide" type="checkbox">Correct Switch Side<br/>
-	 				<span class="checkmark"></span>
-				</label>
-				
-				
-				<label class="container">
-					<input id="autoWrongSwitchSide" 	name="autoWrongSwitchSide" type="checkbox">Wrong Switch Side<br/>
-	 				<span class="checkmark"></span>
-				</label>
-				
-				
-				<label class="container">
-					<input id="autoScale" 				name="autoScale" type="checkbox">Scale<br/>
-	 				<span class="checkmark"></span>
-				</label>
-				
-				
-				<label class="container">
-					<input id="autoExchange" 			name="autoExchange" type="checkbox">Exchange<br/>
-	 				<span class="checkmark"></span>
-				</label>
-				
-				
+				Correct Switch Side <input id="autoCorrectSwitchSide" name="autoCorrectSwitchSide" type="number" value="0" min="0" max="60"><br/>
+				<input class="button inc" type="button" value="+" data-in="autoCorrectSwitchSide">
+				<input class="button dec" type="button" value="-" data-in="autoCorrectSwitchSide"><br/><br/>
+
+				Wrong Switch Side <input id="autoWrongSwitchSide" name="autoWrongSwitchSide" type="number" value="0" min="0" max="60"><br/>
+				<input class="button inc" type="button" value="+" data-in="autoWrongSwitchSide">
+				<input class="button dec" type="button" value="-" data-in="autoWrongSwitchSide"><br/><br/>
+
+				Scale <input id="autoScale" name="autoScale" type="number" value="0" min="0" max="60"><br/>
+				<input class="button inc" type="button" value="+" data-in="autoScale">
+				<input class="button dec" type="button" value="-" data-in="autoScale"><br/><br/>
+
+				Exchange <input id="autoExchange" name="autoExchange" type="number" value="0" min="0" max="60"><br/>
+				<input class="button inc" type="button" value="+" data-in="autoExchange">
+				<input class="button dec" type="button" value="-" data-in="autoExchange"><br/><br/>
+
 				<h2>Teleop Period</h2>
 				<h3>Blocks Delivered</h3>
-				Alliance Switch <input 	id="teleopAllianceSwitch" 	name="teleopAllianceSwitch" type="number" value="0" min="0" max="60">
-				<button class=""></button><br/>
-				
+				Alliance Switch <input 	id="teleopAllianceSwitch" 	name="teleopAllianceSwitch" type="number" value="0" min="0" max="60"><br/>
+				<input class="button inc" type="button" value="+" data-in="teleopAllianceSwitch">
+				<input class="button dec" type="button" value="-" data-in="teleopAllianceSwitch"><br/><br/>
+
 				Scale <input 			id="teleopScale" 			name="teleopScale" 			type="number" value="0" min="0" max="60"><br/>
-				
+				<input class="button inc" type="button" value="+" data-in="teleopScale">
+				<input class="button dec" type="button" value="-" data-in="teleopScale"><br/><br/>
+
 				Opponent Switch <input 	id="teleopOpponentSwitch" 	name="teleopOpponentSwitch" type="number" value="0" min="0" max="60"><br/>
-				
+				<input class="button inc" type="button" value="+" data-in="teleopOpponentSwitch">
+				<input class="button dec" type="button" value="-" data-in="teleopOpponentSwitch"><br/><br/>
+
 				Exchange <input 		id="teleopExchange" 		name="teleopExchange" 		type="number" value="0" min="0" max="60"><br/>
+				<input class="button inc" type="button" value="+" data-in="teleopExchange">
+				<input class="button dec" type="button" value="-" data-in="teleopExchange"><br/><br/>
 				
 				<h2>Endgame</h2>
 				<label class="container">
-					<input id="climb" 		name="climb" 		type="checkbox">Can Climb<br/>
+					<input id="climb" 		name="climb" 		type="checkbox"> Climbed<br/>
 	 				<span class="checkmark"></span>
 				</label>
 				
 				
 				<label class="container">
-					<input id="liftAssist" 	name="liftAssist" 	type="checkbox">Can Lift Others<br/>
+					<input id="liftAssist" 	name="liftAssist" 	type="checkbox"> Lift Others<br/>
 	 				<span class="checkmark"></span>
 				</label>
 				
 				
 				<label class="container">
-					<input id="win" 	name="win" 	type="checkbox">Won Game<br/>
+					<input id="win" 	name="win" 	type="checkbox"> Won Game<br/>
 	 				<span class="checkmark"></span>
 				</label>
 				
