@@ -1,4 +1,4 @@
-const AUTO_DECISION_DEADBAND = .6;
+const AUTO_DECISION_DEADBAND = .49;
 
 const AUTO_SCALE_COLOR = 'blue'
 const AUTO_SWITCH_COLOR = 'green'
@@ -21,19 +21,33 @@ var authorizeButton = document.getElementById('authorize-button');
 var signoutButton = document.getElementById('signout-button');
 
 const defaultTable = '<tr>' +
-  '<th>Team</th>' +
-  '<th>Auto</th>' +
-  '<th>Switch</th>' +
-  '<th>Scale</th>' +
-  '<th>Climb</th>' +
-  '<th>Win</th>' +
+  '<th onclick="sortDisplayTable(0)">Team</th>' +
+  '<th onclick="sortDisplayTable(1)">Auto</th>' +
+  '<th onclick="sortDisplayTable(2)">Switch</th>' +
+  '<th onclick="sortDisplayTable(3)">Scale</th>' +
+  '<th onclick="sortDisplayTable(4)">Climb</th>' +
+  '<th onclick="sortDisplayTable(5)">Win</th>' +
   '</tr>'
 
+var actualData = [];
 var tableData = [];
 
 function toFixed(value, precision) {
   var power = Math.pow(10, precision || 0);
   return String(Math.round(value * power) / power);
+}
+
+function sort(table, col, inv) {
+  console.log('baadsfadsf')
+  if (!inv) {
+    table.sort(function(a, b) {
+      return a[col] - b[col]
+    })
+  } else {
+    table.sort(function(a, b) {
+      return b[col] - a[col]
+    })
+  }
 }
 
 /**
@@ -77,14 +91,18 @@ function updateSigninStatus(isSignedIn) {
     signoutButton.style.display = 'inline-block'
 
     console.log('start')
-    if (localStorage['tableData'] != 'undefined' && localStorage['tableData'] != undefined) {
-      console.log(localStorage['tableData'])
-      tableData = JSON.parse(localStorage['tableData'])
-      setupTable(tableData)
-      createChart('switch', tableData, 6)
-      createChart('scale', tableData, 7)
-      createChart('climbs', tableData, 10)
-      createChart('wins', tableData, 12)
+
+    // load cahche
+    if (localStorage['actualData'] != 'undefined' && localStorage['actualData'] != undefined) {
+      console.log(localStorage['actualData'])
+      actualData = JSON.parse(localStorage['actualData'])
+
+      sort(actualData, 0)
+      setupTable(actualData)
+      createChart('switch', actualData, 6)
+      createChart('scale', actualData, 7)
+      createChart('climbs', actualData, 10)
+      createChart('wins', actualData, 12)
       $('#switch, #scale, #climbs, #wins').show()
 
       function sleepFor(sleepDuration) {
@@ -94,19 +112,20 @@ function updateSigninStatus(isSignedIn) {
       console.log('middle')
     }
 
-    tableData = []
+    actualData = []
 
     gainAccess(function() {
-      setupTable(tableData)
-      createChart('switch', tableData, 6)
-      createChart('scale', tableData, 7)
-      createChart('climbs', tableData, 10)
-      createChart('wins', tableData, 12)
+      sort(actualData, 0)
+      setupTable(actualData)
+      createChart('switch', actualData, 6)
+      createChart('scale', actualData, 7)
+      createChart('climbs', actualData, 10)
+      createChart('wins', actualData, 12)
       $('#switch, #scale, #climbs, #wins').show()
 
       console.log('finish')
 
-      localStorage['tableData'] = JSON.stringify(tableData);
+      localStorage['actualData'] = JSON.stringify(actualData);
     })
 
   } else {
@@ -143,7 +162,7 @@ function appendRow(row) {
   for (var i = 1; i < row.length; i++) {
     datarow.push(toFixed(row[i], 3))
   }
-  tableData.push(datarow)
+  actualData.push(datarow)
 }
 
 function gainAccess(callback) {
@@ -185,6 +204,8 @@ function createRow(team, auto, switchAve, scaleAve, climb, win) {
 
 function setupTable(table) {
   $('#statsTable').html(defaultTable)
+  tableData = []
+
   for (var j = 0; j < table.length; j++) {
     row = table[j]
     var team = row[0]
@@ -195,13 +216,13 @@ function setupTable(table) {
     var autoSwitch = row[2];
     var autoLine = row[1];
     if (autoScale >= AUTO_DECISION_DEADBAND)
-      auto = '<p style="color: ' + AUTO_SCALE_COLOR + '">SCALE<p>'
+      auto = '<p data-score="a" style="color: ' + AUTO_SCALE_COLOR + '">SCALE<p>'
     else if (autoSwitch >= AUTO_DECISION_DEADBAND)
-      auto = '<p style="color: ' + AUTO_SWITCH_COLOR + '">SWITCH<p>'
+      auto = '<p data-score="b" style="color: ' + AUTO_SWITCH_COLOR + '">SWITCH<p>'
     else if (autoLine >= AUTO_DECISION_DEADBAND)
-      auto = '<p style="color: ' + AUTO_LINE_COLOR + '">LINE<p>'
+      auto = '<p data-score="c" style="color: ' + AUTO_LINE_COLOR + '">LINE<p>'
     else
-      auto = '<p style="color: ' + AUTO_NONE_COLOR + '">NONE<p>'
+      auto = '<p data-score="d" style="color: ' + AUTO_NONE_COLOR + '">NONE<p>'
 
     var switchAve = parseFloat(row[6]) + parseFloat(row[8])
     var scaleAve = row[7]
@@ -209,26 +230,17 @@ function setupTable(table) {
     var climb = row[10]
     var win = row[12]
 
+    tableData.push([team, auto, switchAve, scaleAve, climb, win])
+
     document.getElementById('statsTable').innerHTML += createRow(team, auto, switchAve, scaleAve, climb, win)
   }
   $('#statsTable').show()
 }
-///
-///
-///
-///
-///
-///
-///
-///
-///
-///
-///
-///
-///
-///
-///
-///
-///
-///
-///
+
+function sortDisplayTable(col) {
+  $('#statsTable').html(defaultTable)
+  sort(tableData, col)
+  for (var j = 0; j < tableData.length; j++) {
+    document.getElementById('statsTable').innerHTML += createRow(tableData[j][0], tableData[j][1], tableData[j][2], tableData[j][3], tableData[j][4], tableData[j][5])
+  }
+}
