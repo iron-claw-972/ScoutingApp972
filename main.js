@@ -37,17 +37,39 @@ function toFixed(value, precision) {
   return String(Math.round(value * power) / power);
 }
 
-function sort(table, col, inv) {
-  console.log('baadsfadsf')
-  if (!inv) {
-    table.sort(function(a, b) {
-      return a[col] - b[col]
-    })
-  } else {
-    table.sort(function(a, b) {
-      return b[col] - a[col]
-    })
+function isSorted(table, col) {
+  var last = table[0][col];
+  for (e in table) {
+    if (last > e[col])
+      return false
+    last = e[col]
   }
+  return true
+}
+
+function sort(table, col) {
+  console.log(isSorted(table, col))
+  // if (isSorted(table, col)) {
+    table.sort(function(a, b) {
+      if (parseInt(a)){
+        a = parseInt(a)
+        b = parseInt(b)
+      }
+      if (a[col] > b[col])
+        return 1
+      if (a[col] < b[col])
+        return -1
+      return 0
+    })
+  // } else {
+  //   table.sort(function(a, b) {
+  //     if (a[col] > b[col])
+  //       return -1
+  //     if (a[col] < b[col])
+  //       return 1
+  //     return 0
+  //   })
+  // }
 }
 
 /**
