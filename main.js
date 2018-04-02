@@ -8,7 +8,7 @@ const AUTO_NONE_COLOR = 'red'
 // Client ID and API key from the Developer Console
 const CLIENT_ID = '706334826731-skluvlcun29l30bghou6oa6educgcflh.apps.googleusercontent.com';
 const API_KEY = 'AIzaSyBkABC_Q-vMyP0ML1O3AKiSp_YCKsxKUT4';
-const spreadsheetId = '1XfIrmB9tNzBckh3W689WZToBLRnU2kwWatePk_pawoc';
+const spreadsheetId = '1-IviKDX4I6YIn91c9bCKNuz8CDZBbLq02fEz-5fjQcw';
 
 // Array of API discovery doc URLs for APIs used by the quickstart
 const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
@@ -48,19 +48,21 @@ function isSorted(table, col) {
 }
 
 function sort(table, col) {
-  console.log(isSorted(table, col))
+  // console.log(isSorted(table, col))
   // if (isSorted(table, col)) {
-    table.sort(function(a, b) {
-      if (parseInt(a)){
-        a = parseInt(a)
-        b = parseInt(b)
-      }
-      if (a[col] > b[col])
-        return 1
-      if (a[col] < b[col])
-        return -1
-      return 0
-    })
+  table.sort(function(a, b) {
+    ela = a[col]
+    elb = b[col]
+    if (parseInt(ela) && parseInt(elb)) {
+      ela = parseInt(ela)
+      elb = parseInt(elb)
+    }
+    if (ela > elb)
+      return 1
+    if (ela < elb)
+      return -1
+    return 0
+  })
   // } else {
   //   table.sort(function(a, b) {
   //     if (a[col] > b[col])
@@ -107,59 +109,80 @@ function initClient() {
  */
 function updateSigninStatus(isSignedIn) {
 
-  if (isSignedIn) {
+  actualData = []
 
-    authorizeButton.style.display = 'none'
-    signoutButton.style.display = 'inline-block'
+  gainAccess(function() {
+    sort(actualData, 0)
+    setupTable(actualData)
+    createChart('switch', actualData, 6)
+    createChart('scale', actualData, 7)
+    createChart('climbs', actualData, 10)
+    createChart('wins', actualData, 12)
+    $('#switch, #scale, #climbs, #wins').show()
 
-    console.log('start')
+    console.log('finish')
 
-    // load cahche
-    if (localStorage['actualData'] != 'undefined' && localStorage['actualData'] != undefined) {
-      console.log(localStorage['actualData'])
-      actualData = JSON.parse(localStorage['actualData'])
+    localStorage['actualData'] = JSON.stringify(actualData);
+  })
 
-      sort(actualData, 0)
-      setupTable(actualData)
-      createChart('switch', actualData, 6)
-      createChart('scale', actualData, 7)
-      createChart('climbs', actualData, 10)
-      createChart('wins', actualData, 12)
-      $('#switch, #scale, #climbs, #wins').show()
+  // __realUpdateSignin()
 
-      function sleepFor(sleepDuration) {
-        var now = new Date().getTime();
-        while (new Date().getTime() < now + sleepDuration) { /* do nothing */ }
-      }
-      console.log('middle')
-    }
-
-    actualData = []
-
-    gainAccess(function() {
-      sort(actualData, 0)
-      setupTable(actualData)
-      createChart('switch', actualData, 6)
-      createChart('scale', actualData, 7)
-      createChart('climbs', actualData, 10)
-      createChart('wins', actualData, 12)
-      $('#switch, #scale, #climbs, #wins').show()
-
-      console.log('finish')
-
-      localStorage['actualData'] = JSON.stringify(actualData);
-    })
-
-  } else {
-
-    authorizeButton.style.display = 'inline-block'
-    signoutButton.style.display = 'none'
-
-    $('#statsTable').hide()
-    $('#switch, #scale, #climbs, #wins').hide()
-
-  }
 }
+
+// function __realUpdateSignin() {
+//   if (isSignedIn) {
+
+//     authorizeButton.style.display = 'none'
+//     signoutButton.style.display = 'inline-block'
+
+//     console.log('start')
+
+//     // load cahche
+//     if (localStorage['actualData'] != 'undefined' && localStorage['actualData'] != undefined) {
+//       console.log(localStorage['actualData'])
+//       actualData = JSON.parse(localStorage['actualData'])
+
+//       sort(actualData, 0)
+//       setupTable(actualData)
+//       createChart('switch', actualData, 6)
+//       createChart('scale', actualData, 7)
+//       createChart('climbs', actualData, 10)
+//       createChart('wins', actualData, 12)
+//       $('#switch, #scale, #climbs, #wins').show()
+
+//       function sleepFor(sleepDuration) {
+//         var now = new Date().getTime();
+//         while (new Date().getTime() < now + sleepDuration) { /* do nothing */ }
+//       }
+//       console.log('middle')
+//     }
+
+//     actualData = []
+
+//     gainAccess(function() {
+//       sort(actualData, 0)
+//       setupTable(actualData)
+//       createChart('switch', actualData, 6)
+//       createChart('scale', actualData, 7)
+//       createChart('climbs', actualData, 10)
+//       createChart('wins', actualData, 12)
+//       $('#switch, #scale, #climbs, #wins').show()
+
+//       console.log('finish')
+
+//       localStorage['actualData'] = JSON.stringify(actualData);
+//     })
+
+//   } else {
+
+//     authorizeButton.style.display = 'inline-block'
+//     signoutButton.style.display = 'none'
+
+//     // $('#statsTable').hide()
+//     // $('#switch, #scale, #climbs, #wins').hide()
+
+//   }
+// }
 
 /**
  *  Sign in the user upon button click.
@@ -238,15 +261,15 @@ function setupTable(table) {
     var autoSwitch = row[2];
     var autoLine = row[1];
     if (autoScale >= AUTO_DECISION_DEADBAND)
-      auto = '<p data-score="a" style="color: ' + AUTO_SCALE_COLOR + '">SCALE<p>'
+      auto = '<p data-score="d" style="color: ' + AUTO_SCALE_COLOR + '">SCALE<p>'
     else if (autoSwitch >= AUTO_DECISION_DEADBAND)
-      auto = '<p data-score="b" style="color: ' + AUTO_SWITCH_COLOR + '">SWITCH<p>'
+      auto = '<p data-score="c" style="color: ' + AUTO_SWITCH_COLOR + '">SWITCH<p>'
     else if (autoLine >= AUTO_DECISION_DEADBAND)
-      auto = '<p data-score="c" style="color: ' + AUTO_LINE_COLOR + '">LINE<p>'
+      auto = '<p data-score="b" style="color: ' + AUTO_LINE_COLOR + '">LINE<p>'
     else
-      auto = '<p data-score="d" style="color: ' + AUTO_NONE_COLOR + '">NONE<p>'
+      auto = '<p data-score="a" style="color: ' + AUTO_NONE_COLOR + '">NONE<p>'
 
-    var switchAve = parseFloat(row[6]) + parseFloat(row[8])
+    var switchAve = toFixed((parseFloat(row[6]) + parseFloat(row[8])), 3)
     var scaleAve = row[7]
 
     var climb = row[10]
@@ -260,8 +283,8 @@ function setupTable(table) {
 }
 
 function sortDisplayTable(col) {
-  $('#statsTable').html(defaultTable)
   sort(tableData, col)
+  $('#statsTable').html(defaultTable)
   for (var j = 0; j < tableData.length; j++) {
     document.getElementById('statsTable').innerHTML += createRow(tableData[j][0], tableData[j][1], tableData[j][2], tableData[j][3], tableData[j][4], tableData[j][5])
   }
