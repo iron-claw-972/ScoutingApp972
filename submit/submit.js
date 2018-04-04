@@ -4,6 +4,8 @@ $('document').ready(function() {
 
     form.addEventListener('submit', e => {
         e.preventDefault()
+        $('#submit').attr('disabled', 'disabled');
+
         fetch(scriptURL, {
                 method: 'POST',
                 body: new FormData(form)
