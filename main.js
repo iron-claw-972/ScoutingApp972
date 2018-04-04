@@ -1,9 +1,12 @@
 const AUTO_DECISION_DEADBAND = .49;
+const TEAM_EXCLUSION_DEADBAND = .49
+const TEAM_WARNING_DEADBAND = .74;
 
 const AUTO_SCALE_COLOR = 'blue'
 const AUTO_SWITCH_COLOR = 'green'
 const AUTO_LINE_COLOR = 'orange'
 const AUTO_NONE_COLOR = 'red'
+const WARNING_COLOR = '#F7BE81' // orangish
 
 // Client ID and API key from the Developer Console
 const CLIENT_ID = '706334826731-skluvlcun29l30bghou6oa6educgcflh.apps.googleusercontent.com';
@@ -235,7 +238,7 @@ function gainAccess(callback) {
   });
 }
 
-function createRow(team, auto, switchAve, scaleAve, climb, win) {
+function createRow(team, auto, switchAve, scaleAve, climb, win, warning) {
   // var t = '<td><a href="team/?tn=' + team + '">' + team + '</a></td>'
   var t = '<td onclick="window.location.href = \'team/?tn=' + team + '\'"><a href="team/?tn=' + team + '">' + team + '</a></td>'
   // var t = '<td onclick="window.location.href = \'team/?tn=' + team + '\'">' + team + '</a></td>'
@@ -244,7 +247,8 @@ function createRow(team, auto, switchAve, scaleAve, climb, win) {
   var sc = '<td>' + scaleAve + '</td>'
   var c = '<td>' + climb + '</td>'
   var w = '<td>' + win + '</td>'
-  return '<tr>' + t + a + sw + sc + c + w + '</tr>'
+
+  return '<tr style="background-color: ' + WARNING_COLOR + ';">' + t + a + sw + sc + c + w + '</tr>'
 }
 
 function setupTable(table) {
@@ -253,8 +257,15 @@ function setupTable(table) {
 
   for (var j = 0; j < table.length; j++) {
     row = table[j]
-    var team = row[0]
 
+    var scoutRatio = row[15] / row[14]
+    if (scoutRatio < TEAM_EXCLUSION_DEADBAND)
+      continue
+    var warning = false
+    if (scoutRatio < TEAM_WARNING_DEADBAND)
+      warning = true
+
+    var team = row[0]
     var auto;
 
     var autoScale = row[4];
@@ -273,11 +284,14 @@ function setupTable(table) {
     var scaleAve = row[7]
 
     var climb = row[10]
+
     var win = row[12]
+    if (!isNaN(row[13]))
+      win = row[13]
 
-    tableData.push([team, auto, switchAve, scaleAve, climb, win])
+    tableData.push([team, auto, switchAve, scaleAve, climb, win, warning])
 
-    document.getElementById('statsTable').innerHTML += createRow(team, auto, switchAve, scaleAve, climb, win)
+    document.getElementById('statsTable').innerHTML += createRow(team, auto, switchAve, scaleAve, climb, win, warning)
   }
   $('#statsTable').show()
 }
@@ -286,6 +300,6 @@ function sortDisplayTable(col) {
   sort(tableData, col)
   $('#statsTable').html(defaultTable)
   for (var j = 0; j < tableData.length; j++) {
-    document.getElementById('statsTable').innerHTML += createRow(tableData[j][0], tableData[j][1], tableData[j][2], tableData[j][3], tableData[j][4], tableData[j][5])
+    document.getElementById('statsTable').innerHTML += createRow(tableData[j][0], tableData[j][1], tableData[j][2], tableData[j][3], tableData[j][4], tableData[j][5], tableData[j][6])
   }
 }
